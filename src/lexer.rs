@@ -10,7 +10,7 @@ pub enum TokenType {
     LessEqual,
     Add, 
     Subtract,
-    Multiply
+    Multiply,
     Divide,
     AssignEqual,
     CheckEqual,
@@ -25,42 +25,46 @@ pub enum TokenType {
     False,
 }
 
+
 pub struct Token {
     index: usize,
     token: TokenType,
 }
 
-fn get_tokentype(s: String, ind: usize) -> TokenType {
-    if !s.empty() {
+// todo! : implement debugger for Token struct
+
+fn get_tokentype(s: String) -> TokenType {
+    let mut ret: Option<TokenType> = None;
+    if !s.is_empty() {
         if s.chars().all(|c| c.is_numeric()) {
-            return TokenType::Decimal(string.parse().unwrap());
+            ret = Some(TokenType::Decimal(s.parse().unwrap()));
         }
-        match s => {
-            "If" => TokenType::If,
-            "Else" => TokenType::Else,
-            "While" => TokenType::While
-            "While" => TokenType::While,
-            "<" => TokenType::Less,
-            "<=" => TokenType::LessEqual,
-            "+" => TokenType::Add,
-            "-" => TokenType::Subtract,
-            "*" => TokenType::Multiply,
-            "/" => TokenType::Divide,
-            "(" => TokenType::LParen,
-            ")" => TokenType::RParen,
-            "{" => TokenType::LBrace,
-            "{" => TokenType::RBrace,
-            "==" => TokenType::AssignEqual,
-            "!" => TokenType::NotEqual,
-            ";" => TokenType::Semicolon,
-            "True" => TokenType::True,
-            "False" => TokenType::False,
-            _ => TokenType::VarName(s),
+        match s.as_str() {
+            "If" => { ret = Some(TokenType::If); },
+            "Else" => { ret = Some(TokenType::Else);} ,
+            "While" => { ret = Some(TokenType::While); },
+            "<" => { ret = Some(TokenType::Less); },
+            "<=" => { ret = Some(TokenType::LessEqual); },
+            "+" => { ret = Some(TokenType::Add); },
+            "-" => { ret = Some(TokenType::Subtract); },
+            "*" => { ret = Some(TokenType::Multiply); },
+            "/" => { ret = Some(TokenType::Divide); },
+            "(" => { ret = Some(TokenType::LParen); },
+            ")" => { ret = Some(TokenType::RParen); },
+            "{" => { ret = Some(TokenType::LBrace); },
+            "{" => { ret = Some(TokenType::RBrace); },
+            "==" => { ret = Some(TokenType::AssignEqual); },
+            "!" => { ret = Some(TokenType::NotEqual); },
+            ";" => { ret = Some(TokenType::Semicolon); },
+            "True" => { ret = Some(TokenType::True); },
+            "False" => { ret = Some(TokenType::False); },
+            _ => { ret = Some(TokenType::VarName(s)); },
         }
     }
+    return ret.unwrap();
 }
 
-pub fn tokenize(code: &str) -> Vec<Token> {
+pub fn tokenize(code: String) -> Vec<Token> {
     // code should contain all text in the source code file
     let mut tokens: Vec<Token> = Vec::new();
     let mut ind: usize = 0;
@@ -71,7 +75,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
         match c {
             '(' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -81,7 +85,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             ')' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -91,7 +95,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             '{' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -101,7 +105,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             '}' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -111,7 +115,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             ';' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -121,7 +125,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             '!' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -131,7 +135,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             }
             '+' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -141,7 +145,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             '-' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -151,7 +155,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             '*' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -161,7 +165,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             '/' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -170,7 +174,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
                 ind += 1;
             },
             '=' => {
-                match cur_token {
+                match cur_token.as_str() {
                     "=" => {
                         cur_token = String::new();
                         tokens.push(Token {index: ind, token: TokenType::CheckEqual});
@@ -183,7 +187,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
                     },
                     _ => {
                         if !cur_token.is_empty() {
-                            let t: TokenType = get_tokentype(cur_token, ind);
+                            let t: TokenType = get_tokentype(cur_token);
                             tokens.push(Token {index: ind, token: t});
                             cur_token = String::new();
                             ind += 1;
@@ -193,7 +197,7 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             '<' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -201,8 +205,8 @@ pub fn tokenize(code: &str) -> Vec<Token> {
                 cur_token.push(c);
             },
             '0'..='9' => {
-                if !cur_token.is_empty() && !v.last().is_numeric() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                if !cur_token.is_empty() && !cur_token.chars().last().unwrap().is_numeric() {
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -210,8 +214,8 @@ pub fn tokenize(code: &str) -> Vec<Token> {
                 cur_token.push(c);
             },
             'a'..='z' | 'A'..='Z' => {
-                if !cur_token.is_empty() && !v.last().is_alphabetic() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                if !cur_token.is_empty() && !cur_token.chars().last().unwrap().is_alphabetic() {
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
@@ -220,12 +224,20 @@ pub fn tokenize(code: &str) -> Vec<Token> {
             },
             ' ' => {
                 if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token, ind);
+                    let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
                     cur_token = String::new();
                     ind += 1;
                 }
             },
+            '\n' => {
+                if !cur_token.is_empty() {
+                    let t: TokenType = get_tokentype(cur_token);
+                    tokens.push(Token {index: ind, token: t});
+                    cur_token = String::new();
+                    ind += 1;
+                }
+            }
             _ => {
                 println!("syntax error");
             }
