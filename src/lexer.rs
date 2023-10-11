@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub enum TokenType {
     If,
     Else,
@@ -25,7 +26,7 @@ pub enum TokenType {
     False,
 }
 
-
+#[derive(Debug)]
 pub struct Token {
     index: usize,
     token: TokenType,
@@ -36,29 +37,35 @@ pub struct Token {
 fn get_tokentype(s: String) -> TokenType {
     let mut ret: Option<TokenType> = None;
     if !s.is_empty() {
+        // dbg!(s.clone());
         if s.chars().all(|c| c.is_numeric()) {
+            // dbg!("IN");
             ret = Some(TokenType::Decimal(s.parse().unwrap()));
         }
-        match s.as_str() {
-            "If" => { ret = Some(TokenType::If); },
-            "Else" => { ret = Some(TokenType::Else);} ,
-            "While" => { ret = Some(TokenType::While); },
-            "<" => { ret = Some(TokenType::Less); },
-            "<=" => { ret = Some(TokenType::LessEqual); },
-            "+" => { ret = Some(TokenType::Add); },
-            "-" => { ret = Some(TokenType::Subtract); },
-            "*" => { ret = Some(TokenType::Multiply); },
-            "/" => { ret = Some(TokenType::Divide); },
-            "(" => { ret = Some(TokenType::LParen); },
-            ")" => { ret = Some(TokenType::RParen); },
-            "{" => { ret = Some(TokenType::LBrace); },
-            "{" => { ret = Some(TokenType::RBrace); },
-            "==" => { ret = Some(TokenType::AssignEqual); },
-            "!" => { ret = Some(TokenType::NotEqual); },
-            ";" => { ret = Some(TokenType::Semicolon); },
-            "True" => { ret = Some(TokenType::True); },
-            "False" => { ret = Some(TokenType::False); },
-            _ => { ret = Some(TokenType::VarName(s)); },
+        else {
+            match s.as_str() {
+                "If" => { ret = Some(TokenType::If); },
+                "Else" => { ret = Some(TokenType::Else);} ,
+                "While" => { ret = Some(TokenType::While); },
+                "var" => { ret = Some(TokenType::Var); },
+                "<" => { ret = Some(TokenType::Less); },
+                "<=" => { ret = Some(TokenType::LessEqual); },
+                "+" => { ret = Some(TokenType::Add); },
+                "-" => { ret = Some(TokenType::Subtract); },
+                "*" => { ret = Some(TokenType::Multiply); },
+                "/" => { ret = Some(TokenType::Divide); },
+                "(" => { ret = Some(TokenType::LParen); },
+                ")" => { ret = Some(TokenType::RParen); },
+                "{" => { ret = Some(TokenType::LBrace); },
+                "{" => { ret = Some(TokenType::RBrace); },
+                "=" => { ret = Some(TokenType::AssignEqual); },
+                "==" => { ret = Some(TokenType::CheckEqual); },
+                "!" => { ret = Some(TokenType::NotEqual); },
+                ";" => { ret = Some(TokenType::Semicolon); },
+                "True" => { ret = Some(TokenType::True); },
+                "False" => { ret = Some(TokenType::False); },
+                _ => { ret = Some(TokenType::VarName(s)); },
+            }
         }
     }
     return ret.unwrap();
@@ -192,6 +199,7 @@ pub fn tokenize(code: String) -> Vec<Token> {
                             cur_token = String::new();
                             ind += 1;
                         }
+                        cur_token.push(c);
                     }
                 }
             },

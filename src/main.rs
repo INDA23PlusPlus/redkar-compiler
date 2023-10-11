@@ -16,7 +16,8 @@ fn main() {
 
     let tok: Vec<Token> = tokenize(s);
 
+    dbg!(tok);
 
-    println!("With text:\n{contents}");
+    println!("{contents}");
 
 }
