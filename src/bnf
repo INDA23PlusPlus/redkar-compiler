@@ -1,5 +1,5 @@
-<wrapper> ::= E | <wrap>
-<wrap> ::= <empty> ( <if> | <boom> | <while> | <varinit> | <assign> ) <empty>
+<block> ::= E | <statement>
+<statement> ::= <empty> ( <if> | <boom> | <while> | <varinit> | <assign> ) <empty>
 
 /* decimal can start with 0, right now, need to fix later */
 <decimal> ::= [0-9]+
@@ -22,9 +22,9 @@
 /* addition and subtraction */
 <expr> ::= <expr> <empty> "+" <empty> <AB> | <expr> <empty> "-" <empty> <AB> | <AB>
 
-/* wrapped things now */
+/* statement things now */
 
-<if> ::= ( "If" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <wrapper> <empty> "}" ) ( <empty> "Else" <empty> "{" <wrapper> <empty> "}" )?
-<while> ::= "While" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <wrapper> <empty> "}"
+<if> ::= ( "If" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <block> <empty> "}" ) ( <empty> "Else" <empty> "{" <block> <empty> "}" )?
+<while> ::= "While" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <block> <empty> "}"
 <boom> ::= "Boom(" <expr> ");"
 

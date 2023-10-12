@@ -15,8 +15,7 @@ fn main() {
     let s = String::from(contents.clone());
 
     let tok: Vec<Token> = tokenize(s);
-
-    dbg!(tok);
+    let ast = make_ast(tok);
 
     println!("{contents}");
 

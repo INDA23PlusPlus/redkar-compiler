@@ -15,7 +15,6 @@ pub enum TokenType {
     Divide,
     AssignEqual,
     CheckEqual,
-    Print,
     NotEqual,
     Semicolon,
     LParen,
@@ -24,6 +23,8 @@ pub enum TokenType {
     RBrace,
     True,
     False,
+    Print,
+    Die,
 }
 
 #[derive(Debug)]
@@ -64,6 +65,8 @@ fn get_tokentype(s: String) -> TokenType {
                 ";" => { ret = Some(TokenType::Semicolon); },
                 "True" => { ret = Some(TokenType::True); },
                 "False" => { ret = Some(TokenType::False); },
+                "Print" => { ret = Some(TokenType::Print); },
+                "DIE" => { ret = Some(TokenType::Die); },
                 _ => { ret = Some(TokenType::VarName(s)); },
             }
         }
@@ -230,7 +233,7 @@ pub fn tokenize(code: String) -> Vec<Token> {
                 }
                 cur_token.push(c);
             },
-            ' ' => {
+            ' ' | '\n' => {
                 if !cur_token.is_empty() {
                     let t: TokenType = get_tokentype(cur_token);
                     tokens.push(Token {index: ind, token: t});
@@ -238,14 +241,6 @@ pub fn tokenize(code: String) -> Vec<Token> {
                     ind += 1;
                 }
             },
-            '\n' => {
-                if !cur_token.is_empty() {
-                    let t: TokenType = get_tokentype(cur_token);
-                    tokens.push(Token {index: ind, token: t});
-                    cur_token = String::new();
-                    ind += 1;
-                }
-            }
             _ => {
                 println!("syntax error");
             }
