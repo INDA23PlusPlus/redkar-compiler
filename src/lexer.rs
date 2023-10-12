@@ -47,7 +47,7 @@ fn get_tokentype(s: String) -> TokenType {
                 "If" => { ret = Some(TokenType::If); },
                 "Else" => { ret = Some(TokenType::Else);} ,
                 "While" => { ret = Some(TokenType::While); },
-                "var" => { ret = Some(TokenType::Var); },
+                "Var" => { ret = Some(TokenType::Var); },
                 "<" => { ret = Some(TokenType::Less); },
                 "<=" => { ret = Some(TokenType::LessEqual); },
                 "+" => { ret = Some(TokenType::Add); },

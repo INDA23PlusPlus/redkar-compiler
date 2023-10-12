@@ -12,18 +12,19 @@
 
 <alone> ::= "(" <expr> ")" | <decimal> | <var>
 
-<boolexpr> ::= "true" | "false" | <expr> <empty> "==" <empty> <expr> | <expr> <empty> "<" <empty> <expr> | <expr> <empty> "<=" <empty> <expr> | "!" <empty> <boolexpr>
+<boolexpr> ::= "True" | "False" | <expr> <empty> "==" <empty> <expr> | <expr> <empty> "<" <empty> <expr> | <expr> <empty> "<=" <empty> <expr> | "!" <empty> <boolexpr>
 /* need to add support for the two following */
 /* <boolexpr> <empty> "&&" <empty> <boolexpr> | <boolexpr> <empty> "||" <empty> <boolexpr>  */
 
 <assign> ::= <var> <empty> "=" <empty> <expr> ";"
-<varinit> ::= "var " <var> <empty> "=" <empty> <expr> ";"
+<varinit> ::= "Var " <empty> <var> <empty> "=" <empty> <expr> ";"
 
 /* addition and subtraction */
 <expr> ::= <expr> <empty> "+" <empty> <AB> | <expr> <empty> "-" <empty> <AB> | <AB>
 
 /* wrapped things now */
 
-<if> ::= ( "if" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <wrapper> <empty> "}" ) ( <empty> "else" <empty> "{" <wrapper> <empty> "}" )?
-<while> ::= "while" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <wrapper> <empty> "}"
-<boom> ::= "boom(" <expr> ");"
+<if> ::= ( "If" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <wrapper> <empty> "}" ) ( <empty> "Else" <empty> "{" <wrapper> <empty> "}" )?
+<while> ::= "While" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <wrapper> <empty> "}"
+<boom> ::= "Boom(" <expr> ");"
+
