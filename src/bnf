@@ -1,0 +1,29 @@
+<wrapper> ::= E | <wrap>
+<wrap> ::= <empty> ( <if> | <boom> | <while> | <varinit> | <assign> ) <empty>
+
+/* decimal can start with 0, right now, need to fix later */
+<decimal> ::= [0-9]+
+
+<var> ::= ( (([0-9] | [a-z])+ ("_")+ ([0-9] | [a-z])+)* )
+<empty> ::= E | " " | "\n" | "\t"
+
+/* some multiplicative operation AB */ 
+<AB> ::= <AB> <empty> "*" <empty> <alone> | <AB> <empty> "/" <empty> <alone> | <alone>
+
+<alone> ::= "(" <expr> ")" | <decimal> | <var>
+
+<boolexpr> ::= "true" | "false" | <expr> <empty> "==" <empty> <expr> | <expr> <empty> "<" <empty> <expr> | <expr> <empty> "<=" <empty> <expr> | "!" <empty> <boolexpr>
+/* need to add support for the two following */
+/* <boolexpr> <empty> "&&" <empty> <boolexpr> | <boolexpr> <empty> "||" <empty> <boolexpr>  */
+
+<assign> ::= <var> <empty> "=" <empty> <expr> ";"
+<varinit> ::= "var " <var> <empty> "=" <empty> <expr> ";"
+
+/* addition and subtraction */
+<expr> ::= <expr> <empty> "+" <empty> <AB> | <expr> <empty> "-" <empty> <AB> | <AB>
+
+/* wrapped things now */
+
+<if> ::= ( "if" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <wrapper> <empty> "}" ) ( <empty> "else" <empty> "{" <wrapper> <empty> "}" )?
+<while> ::= "while" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <wrapper> <empty> "}"
+<boom> ::= "boom(" <expr> ");"
