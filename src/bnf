@@ -1,4 +1,4 @@
-<block> ::= E | <statement>
+<body> ::= E | <statement>
 <statement> ::= <empty> ( <if> | <boom> | <while> | <varinit> | <assign> ) <empty>
 
 /* decimal can start with 0, right now, need to fix later */
@@ -7,8 +7,8 @@
 <var> ::= ( (([0-9] | [a-z])+ ("_")+ ([0-9] | [a-z])+)* )
 <empty> ::= E | " " | "\n" | "\t"
 
-/* some multiplicative operation AB */ 
-<AB> ::= <AB> <empty> "*" <empty> <alone> | <AB> <empty> "/" <empty> <alone> | <alone>
+/* some multiplicative operation MD_Expr */ 
+<MD_Expr> ::= <MD_Expr> <empty> "*" <empty> <alone> | <MD_Expr> <empty> "/" <empty> <alone> | <alone>
 
 <alone> ::= "(" <expr> ")" | <decimal> | <var>
 
@@ -20,11 +20,11 @@
 <varinit> ::= "Var " <empty> <var> <empty> "=" <empty> <expr> ";"
 
 /* addition and subtraction */
-<expr> ::= <expr> <empty> "+" <empty> <AB> | <expr> <empty> "-" <empty> <AB> | <AB>
+<expr> ::= <expr> <empty> "+" <empty> <MD_Expr> | <expr> <empty> "-" <empty> <MD_Expr> | <MD_Expr>
 
 /* statement things now */
 
-<if> ::= ( "If" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <block> <empty> "}" ) ( <empty> "Else" <empty> "{" <block> <empty> "}" )?
-<while> ::= "While" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <block> <empty> "}"
+<if> ::= ( "If" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <body> <empty> "}" ) ( <empty> "Else" <empty> "{" <body> <empty> "}" )?
+<while> ::= "While" <empty> "(" <empty> <boolexpr> <empty> ")" <empty> "{" <body> <empty> "}"
 <boom> ::= "Boom(" <expr> ");"
 

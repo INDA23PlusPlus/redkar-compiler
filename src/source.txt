@@ -1,3 +1,4 @@
+EMERGE
 Var a = 5;
 Var b = 25;
 If (a == b) {
@@ -11,3 +12,4 @@ Var c = true;
 If xsss!c {
         iWIN
 }
+DIE

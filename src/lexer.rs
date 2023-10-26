@@ -24,6 +24,7 @@ pub enum TokenType {
     True,
     False,
     Print,
+    Emerge,
     Die,
 }
 
@@ -67,6 +68,7 @@ fn get_tokentype(s: String) -> TokenType {
                 "False" => { ret = Some(TokenType::False); },
                 "Print" => { ret = Some(TokenType::Print); },
                 "DIE" => { ret = Some(TokenType::Die); },
+                "EMERGE" => { ret = Some(TokenType::Die); },
                 _ => { ret = Some(TokenType::VarName(s)); },
             }
         }
