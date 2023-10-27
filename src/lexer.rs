@@ -16,6 +16,8 @@ pub enum TokenType {
     AssignEqual,
     CheckEqual,
     NotEqual,
+    And,
+    Or,
     Semicolon,
     LParen,
     RParen,
@@ -23,7 +25,7 @@ pub enum TokenType {
     RBrace,
     True,
     False,
-    Print,
+    Boom,
     Emerge,
     Die,
 }
@@ -31,7 +33,7 @@ pub enum TokenType {
 #[derive(Debug)]
 pub struct Token {
     index: usize,
-    token: TokenType,
+    pub token: TokenType,
 }
 
 // todo! : implement debugger for Token struct
@@ -64,9 +66,11 @@ fn get_tokentype(s: String) -> TokenType {
                 "==" => { ret = Some(TokenType::CheckEqual); },
                 "!" => { ret = Some(TokenType::NotEqual); },
                 ";" => { ret = Some(TokenType::Semicolon); },
+                "and" => { ret = Some(TokenType::And); },
+                "or" => { ret = Some(TokenType::Or); },
                 "True" => { ret = Some(TokenType::True); },
                 "False" => { ret = Some(TokenType::False); },
-                "Print" => { ret = Some(TokenType::Print); },
+                "Boom" => { ret = Some(TokenType::Boom); },
                 "DIE" => { ret = Some(TokenType::Die); },
                 "EMERGE" => { ret = Some(TokenType::Die); },
                 _ => { ret = Some(TokenType::VarName(s)); },

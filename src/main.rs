@@ -4,6 +4,7 @@ use crate::lexer::tokenize;
 use crate::lexer::Token;
 
 mod lexer;
+mod ast;
 
 fn main() {
     let file_path = "/home/ac41991/kth/redkar-compiler/src/source.txt";
@@ -15,7 +16,10 @@ fn main() {
     let s = String::from(contents.clone());
 
     let tok: Vec<Token> = tokenize(s);
-    dbg!(tok);
+
+    let abstract_syntax_tree = ast::make_ast(tok);
+    dbg!(abstract_syntax_tree);
+
 
     println!("{contents}");
 

@@ -12,4 +12,5 @@ Var c = true;
 If xsss!c {
         iWIN
 }
+Boom(5);
 DIE
