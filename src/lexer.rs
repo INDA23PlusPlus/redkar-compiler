@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum TokenType {
     If,
     Else,
@@ -7,7 +7,7 @@ pub enum TokenType {
     Decimal(i32),
     VarName(String),
     // less than comparators not needed
-    Less,
+    LessThan,
     LessEqual,
     Add, 
     Subtract,
@@ -30,7 +30,7 @@ pub enum TokenType {
     Die,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Token {
     index: usize,
     pub token: TokenType,
@@ -52,7 +52,7 @@ fn get_tokentype(s: String) -> TokenType {
                 "Else" => { ret = Some(TokenType::Else);} ,
                 "While" => { ret = Some(TokenType::While); },
                 "Var" => { ret = Some(TokenType::Var); },
-                "<" => { ret = Some(TokenType::Less); },
+                "<" => { ret = Some(TokenType::LessThan); },
                 "<=" => { ret = Some(TokenType::LessEqual); },
                 "+" => { ret = Some(TokenType::Add); },
                 "-" => { ret = Some(TokenType::Subtract); },
@@ -72,7 +72,7 @@ fn get_tokentype(s: String) -> TokenType {
                 "False" => { ret = Some(TokenType::False); },
                 "Boom" => { ret = Some(TokenType::Boom); },
                 "DIE" => { ret = Some(TokenType::Die); },
-                "EMERGE" => { ret = Some(TokenType::Die); },
+                "EMERGE" => { ret = Some(TokenType::Emerge); },
                 _ => { ret = Some(TokenType::VarName(s)); },
             }
         }

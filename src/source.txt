@@ -1,16 +1,11 @@
 EMERGE
-Var a = 5;
-Var b = 25;
-If (a == b) {
-        a = b;
+Var i = 1;
+Var a = 0;
+Var b = 1;
+While (i < 10) {
+	Boom(a);
+	Var temp = a+b;
+	a = b;
+	b = temp;
 }
-Else {
-        a = 5*b;
-}
-a+b;
-Var c = true;
-If xsss!c {
-        iWIN
-}
-Boom(5);
 DIE

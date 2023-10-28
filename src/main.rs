@@ -16,8 +16,9 @@ fn main() {
     let s = String::from(contents.clone());
 
     let tok: Vec<Token> = tokenize(s);
+    dbg!(tok.clone());
 
-    let abstract_syntax_tree = ast::make_ast(tok);
+    let abstract_syntax_tree = ast::make_ast(tok.clone());
     dbg!(abstract_syntax_tree);
 
 
