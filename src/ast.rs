@@ -1,6 +1,6 @@
 #![warn(non_camel_case_types)]
 
-use crate::lexer::{Token, TokenType};
+use crate::tokenizer::{Token, TokenType};
 use std::slice::Iter;
 use std::iter::Peekable;
 

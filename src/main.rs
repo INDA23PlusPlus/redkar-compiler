@@ -1,13 +1,14 @@
 use std::env;
 use std::fs;
-use crate::lexer::tokenize;
-use crate::lexer::Token;
+use crate::tokenizer::tokenize;
+use crate::tokenizer::Token;
 
-mod lexer;
+mod tokenizer;
 mod ast;
+mod transpiler;
 
 fn main() {
-    let file_path = "/home/ac41991/kth/redkar-compiler/src/source.txt";
+    let file_path = "/home/ac41991/kth/redkar-compiler/src/fib.raunak";
     println!("In file {}", file_path);
 
     let contents = fs::read_to_string(file_path)
@@ -19,9 +20,12 @@ fn main() {
     dbg!(tok.clone());
 
     let abstract_syntax_tree = ast::make_ast(tok.clone());
-    dbg!(abstract_syntax_tree);
 
+    println!("\nThe source code is:\n{}", contents);
 
-    println!("{contents}");
+    let cpp = transpiler::transpile_ast(abstract_syntax_tree.clone());
+    println!("{}", cpp);
+   
+    
 
 }

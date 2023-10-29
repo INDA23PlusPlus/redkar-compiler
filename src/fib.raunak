@@ -7,5 +7,7 @@ While (i < 10) {
 	Var temp = a+b;
 	a = b;
 	b = temp;
+	i = i+1;
 }
 DIE
+
